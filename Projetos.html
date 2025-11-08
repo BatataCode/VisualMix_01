@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="ArquivosCss/Projetos.css" />
+  <script disable-devtool-auto src="https://cdn.jsdelivr.net/npm/disable-devtool"></script>
+  <title>Projetos</title>
+</head>
+<body>
+  <div id="AreaTodosBotoes">
+    <button id="btnImportarProjeto" aria-label="Importar projeto">📥</button>
+    <input type="file" id="inputImportarProjeto" accept=".json" style="display: none;" />
+    <button id="btnExportarProjeto" aria-label="Exportar projeto" onclick="abrirModalExportar()">📤</button>
+    <button id="btnCriar" onclick="abrirModal()" aria-label="Criar novo projeto">+</button>
+  </div>
+  
+  <button id="repositorio" onclick="abrirRepositorio()">?</button>
+
+  <h2 id="title-projetos">Projetos</h2>
+
+  <!-- Lista de Projetos -->
+  <div id="listaProjetos" style="width: 90vw; max-width: 600px; margin-top: 50px; margin-bottom: 20px; font-size: 25px;"></div>
+
+  <!-- Modal de Criação -->
+  <div id="modalCriarProjetos" class="modal" style="display: none;">
+    <div class="modal-content">
+      <button class="botao-fechar" onclick="fecharModal()" aria-label="Fechar modal">×</button>
+      <h2>Criar Projeto</h2>
+      <div id="AreaCriacao">
+        <input type="text" placeholder="Nome do Projeto" id="inputNomeProjeto" />
+        <small id="mensagemErro" style="color: red; display: none;"></small>
+        <button id="BotãoCriar" onclick="criarProjeto()">Criar</button>
+      </div>
+    </div>
+  </div>
+  
+   <!-- Modal da Orientação do Projeto AndroidInterface.changeOrientation('landscape');-->
+  <div id="modalOrientacaoDoProjeto" class="modal" style="display: none;">
+  <div class="modal-content">
+    <button class="botao-fechar" onclick="fecharModalOrientacao()">×</button>
+    <h2>Orientação Do Projeto</h2>
+    <select id="selectOrientacao" style="width: 100%; margin-bottom: 15px; font-size: 18px;">
+  <option value="portrait">Retrato</option>
+  <option value="landscape">Paisagem</option>
+</select>
+    <button onclick="confirmarOrientacao()">Salvar</button>
+  </div>
+</div>
+  
+  <!-- Modal de Exportar Projeto -->
+<div id="modalExportarProjeto" class="modal" style="display: none;">
+  <div class="modal-content">
+    <button class="botao-fechar" onclick="fecharModalExportar()">×</button>
+    <h2>Exportar Projeto</h2>
+    <select id="selectProjetoExportar" style="width: 100%; margin-bottom: 15px; font-size: 18px;"></select>
+    <button onclick="confirmarExportacao()">Exportar</button>
+  </div>
+</div>
+
+  <!-- Modal de Edição de Nome -->
+<div id="modalEditarProjeto" class="modal" style="display: none;">
+  <div class="modal-content">
+    <button class="botao-fechar" onclick="fecharModalEditarProjeto()">×</button>
+    <h2>Editar Nome do Projeto</h2>
+    <input type="text" id="inputEditarNomeProjeto" placeholder="Novo nome do projeto" />
+    <small id="mensagemErroEditar" style="color: red; display: none;"></small>
+    <button onclick="confirmarEdicaoNome()">Salvar</button>
+  </div>
+</div>
+  <script src="ArquivosJs/Projetos.js"></script>
+  <script src="ArquivosJs/Compartilhar.js"></script>
+</body>
+</html>

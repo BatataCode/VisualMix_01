@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="ArquivosCss/EstilizarPrograma.css">
+<script disable-devtool-auto src="https://cdn.jsdelivr.net/npm/disable-devtool"></script>
+<title>Programacao</title>
+<style>
+#toggleBotoes {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    background: #2196f3;
+    color: white;
+    font-size: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1100;
+    transition: transform 0.1s ease, background-color 0.2s ease;
+    touch-action: manipulation;
+}
+
+#toggleBotoes.pressionado {
+    transform: scale(0.95);
+    background: #1976d2;
+}
+
+#AreaTodosBotoes {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 10px;
+    z-index: 1050;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#AreaTodosBotoes.mostrar {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+#AreaTodosBotoes button {
+    padding: 10px 15px;
+    font-size: 18px;
+    border-radius: 8px;
+    border: none;
+    background: #2196f3;
+    color: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: transform 0.1s ease, background-color 0.2s ease;
+    touch-action: manipulation;
+    cursor: pointer;
+}
+
+#AreaTodosBotoes button.pressionado {
+    transform: scale(0.95);
+    background: #1976d2;
+}
+
+#ID {
+    font-weight: bold;
+    color: white;
+    font-size: 25px;
+    margin: 10px;
+    position: fixed;
+    z-index: 1000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 75%;
+    top: 1px;
+    left: 1px;
+}
+
+#btnFechar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: none;
+    background-color: #e74c3c;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    top: 1.5%;
+    right: 3%;
+    position: fixed;
+}
+
+  .btn-acao {
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#333;
+    color:white;
+    font-size:15px;
+    font-weight:500;
+    cursor:pointer;
+    transition:all 0.2s;
+  }
+  .btn-acao:hover { background:#444; }
+  .btn-acao:active { background:#555; }
+
+  .btn-cancelar {
+    padding:10px 16px;
+    border:none;
+    border-radius:8px;
+    background:#888;
+    color:white;
+    font-weight:500;
+    cursor:pointer;
+    transition:0.2s;
+  }
+  .btn-cancelar:hover { background:#999; }
+
+  .btn-ok {
+    padding:10px 16px;
+    border:none;
+    border-radius:8px;
+    background:#4caf50;
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.2s;
+  }
+  .btn-ok:hover { background:#45a049; }
+
+</style>
+</head>
+<body>
+  <div id="ID">ID: </div>
+
+<button id="toggleBotoes" aria-label="Alternar botões" title="Mostrar/Esconder botões">☰</button>
+
+<div id="AreaTodosBotoes">
+    <button id="botaoExecutar" onclick="executarTodos()">🎮 Executar</button>
+    <button id="botaoSelecionar" onclick="abrirModal()">🧩 Selecionar</button>
+    <button id="botaoImagem" onclick="abrirSeletorDeImagens()">📂 Arquivos</button>
+    <button id="botaoCopiarBloco">📋 Copiar</button>
+</div>
+
+<div id="area-blocos"></div>
+
+<div id="modalEscolherBlocos" class="modal">
+  <div class="modal-content">
+     <div class="opcoes-container">
+    <!-- CATEGORIA: Eventos -->
+<h3 class="titulo-categoria">Eventos</h3>
+   <div class="bloco bloco-quandoComecar" onclick="adicionarBloco('quandoComecar')">
+       <h3>Quando Começar</h3></div>
+   <div class="bloco bloco-quandoTocado" onclick="adicionarBloco('quandoTocado')">
+       <h3>Quando Tocado</h3></div>
+   <div class="bloco bloco-quandoTocadoNaTela" onclick="adicionarBloco('quandoTocadoNaTela')">
+       <h3>Quando Tocado Na Tela</h3></div>
+   <div class="bloco bloco-quandoForVerdadeiro" onclick="adicionarBloco('quandoForVerdadeiro')">
+       <h3>Quando For Verdadeiro</h3></div>
+   <div class="bloco bloco-quandoCriarClone" onclick="adicionarBloco('quandoCriarClone')">
+       <h3>Quando Criar Clone</h3></div>
+    <!-- CATEGORIA: Controle de Fluxo -->
+<h3 class="titulo-categoria">Controle de Fluxo</h3>
+   <div class="bloco bloco-se" onclick="adicionarBloco('se')">
+       <h3>Se é Verdadeiro</h3></div>
+   <div class="bloco bloco-repetirVezes" onclick="adicionarBloco('repetirVezes')">
+       <h3>Repetir Vezes</h3></div>
+    <div class="bloco bloco-repetirAte" onclick="adicionarBloco('repetirAte')">
+        <h3>Repetir Até</h3></div>
+    <div class="bloco bloco-repetirSempre" onclick="adicionarBloco('repetirSempre')">
+        <h3>Repetir Sempre</h3></div>
+    <div class="bloco bloco-aguardarSegundos" onclick="adicionarBloco('aguardarSegundos')">
+        <h3>Aguardar Segundos</h3></div>
+    <div class="bloco bloco-aguardarSerVerdadeiro" onclick="adicionarBloco('aguardarSerVerdadeiro')">
+        <h3>Aguardar Ser Verdadeiro</h3></div>
+    <div class="bloco bloco-mudarDeCena" onclick="adicionarBloco('mudarDeCena')">
+        <h3>Ir Para Cena</h3></div>
+    <div class="bloco bloco-definirOrientacao" onclick="adicionarBloco('definirOrientacao')">
+        <h3>Definir Orientacao</h3></div>
+    <!-- CATEGORIA: Criação e Clonagem -->
+<h3 class="titulo-categoria">Criação e Clonagem</h3>
+   <div class="bloco bloco-novoObjeto" onclick="adicionarBloco('novoObjeto')">
+       <h3>Novo Objeto</h3></div>
+   <div class="bloco bloco-clonarObjeto" onclick="adicionarBloco('clonarObjeto')">
+       <h3>Clonar Objeto</h3></div>
+    <!-- CATEGORIA: Movimento e Física -->
+<h3 class="titulo-categoria">Movimento e Física</h3>
+<div class="bloco bloco-definirPosicaoDoObjeto" onclick="adicionarBloco('definirPosicaoDoObjeto')">
+       <h3>Posição Do Objeto</h3></div>
+    <div class="bloco bloco-moverObjeto" onclick="adicionarBloco('moverObjeto')">
+       <h3>Mover Objeto</h3></div>
+    <div class="bloco bloco-definirDirecao" onclick="adicionarBloco('definirDirecao')">
+       <h3>Definir Direção</h3></div>
+    <!-- CATEGORIA: Aparência e Estilo -->
+<h3 class="titulo-categoria">Aparência e Estilo</h3>
+<div class="bloco bloco-definirCor" onclick="adicionarBloco('definirCor')">
+       <h3>Cor Do Objeto</h3></div>
+<div class="bloco bloco-bordaDoObjeto" onclick="adicionarBloco('bordaDoObjeto')">
+       <h3>Borda Do Objeto</h3></div>
+<div class="bloco bloco-definirTamanho" onclick="adicionarBloco('definirTamanho')">
+       <h3>Definir Tamanho</h3></div>
+<div class="bloco bloco-larguraEaltura" onclick="adicionarBloco('larguraEaltura')">
+       <h3>Definir Largura E Altura</h3></div>
+<div class="bloco bloco-definirSprite" onclick="adicionarBloco('definirSprite')">
+    <h3>Definir Sprite</h3></div>
+<div class="bloco bloco-definirCamada" onclick="adicionarBloco('definirCamada')">
+    <h3>Definir Camada</h3></div>
+<div class="bloco bloco-definirTransparencia" onclick="adicionarBloco('definirTransparencia')">
+    <h3>Definir Transparência</h3></div>
+<div class="bloco bloco-mostrar" onclick="adicionarBloco('mostrar')">
+    <h3>Mostrar Objeto</h3></div>
+<div class="bloco bloco-esconder" onclick="adicionarBloco('esconder')">
+    <h3>Esconder Objeto</h3></div>
+<div class="bloco bloco-remover" onclick="adicionarBloco('remover')">
+    <h3>Excluir Objeto</h3></div>
+    <!-- CATEGORIA: Áudio -->
+<h3 class="titulo-categoria">Audios</h3>
+<div class="bloco bloco-tocarAudio" onclick="adicionarBloco('tocarAudio')">
+     <h3>Tocar Audio</h3></div>
+<div class="bloco bloco-pausarAudio" onclick="adicionarBloco('pausarAudio')">
+    <h3>Pausar Audio</h3></div>
+<div class="bloco bloco-continuarAudio" onclick="adicionarBloco('continuarAudio')">
+    <h3>Continuar Audio</h3></div>
+<div class="bloco bloco-pararAudio" onclick="adicionarBloco('pararAudio')">
+    <h3>Parar Audio</h3></div>
+<div class="bloco bloco-volumeAudio" onclick="adicionarBloco('volumeAudio')">
+    <h3>Definir Volume</h3></div>
+    <!-- CATEGORIA: Animações -->
+<h3 class="titulo-categoria">Animações</h3>
+<div class="bloco bloco-criarAnimacao" onclick="adicionarBloco('criarAnimacao')">
+      <h3>Criar Animação</h3></div>
+    <!-- CATEGORIA: Texto -->
+<h3 class="titulo-categoria">Texto</h3>
+<div class="bloco bloco-novoTexto" onclick="adicionarBloco('novoTexto')">
+      <h3>Novo Texto</h3></div>
+<div class="bloco bloco-definirPosicaoDoTexto" onclick="adicionarBloco('definirPosicaoDoTexto')">
+     <h3>Posição Do Texto</h3></div>
+    <!-- CATEGORIA: Variáveis e Listas -->
+<h3 class="titulo-categoria">Variáveis e Listas</h3>
+<div class="bloco bloco-definirVariavel" onclick="adicionarBloco('definirVariavel')">
+    <h3>Definir Variavel</h3></div>
+<div class="bloco bloco-alterarVariavel" onclick="adicionarBloco('alterarVariavel')">
+    <h3>Alterar Variavel</h3></div>
+    <!-- CATEGORIA: Câmera -->
+<h3 class="titulo-categoria">Câmera</h3>
+<div class="bloco bloco-addCamera" onclick="adicionarBloco('addCamera')">
+    <h3>Adicionar Camera</h3></div>
+<div class="bloco bloco-velocidadeDaCamera" onclick="adicionarBloco('velocidadeDaCamera')">
+    <h3>Velocidade Da Camera</h3></div>
+<div class="bloco bloco-fixarNaCamera" onclick="adicionarBloco('fixarNaCamera')">
+    <h3>Fixar Na Camera</h3></div>
+    <!-- CATEGORIA: Anúncios -->
+<h3 class="titulo-categoria">Anúncios</h3>
+<div class="bloco bloco-configurarUnity" onclick="adicionarBloco('configurarUnity')">
+    <h3>Configurar Unity Ads</h3></div>
+<div class="bloco bloco-exibirAnuncio" onclick="adicionarBloco('exibirAnuncio')">
+    <h3>Exibir Anuncio</h3></div>
+    <!-- CATEGORIA: Comentários -->
+<h3 class="titulo-categoria">Comentários</h3>
+<div class="bloco bloco-comentario" onclick="adicionarBloco('comentario')">
+    <h3>Comentário</h3></div>
+</div><button id="btnFechar" onclick="fecharModal()">X</button></div></div>
+
+<!-- Modal do editor de expressões -->
+<div id="modalCalculadora" style="display:none; position:fixed; inset:0; background:#000000aa; display:flex; justify-content:center; align-items:center; z-index:10000;">
+  <div style="background:#1e1e1e; padding:20px; border-radius:16px; width:90%; max-width:500px; color:white; font-family:sans-serif; box-shadow:0 8px 30px rgba(0,0,0,0.6); position:relative;">
+    
+    <!-- Cabeçalho -->
+    <h3 style="margin:0 0 15px; font-size:20px; font-weight:600; border-bottom:1px solid #333; padding-bottom:8px;">
+      Script Editor
+    </h3>
+
+    <!-- Campo de entrada -->
+    <input id="inputExpressao" type="text" placeholder="Digite a expressão" autocapitalize="off"
+      style="width:100%; padding:12px; font-size:16px; border-radius:8px; border:1px solid #444; outline:none; background:#2a2a2a; color:white; margin-bottom:12px;" />
+
+    <!-- Sugestões -->
+    <div id="sugestoesCalculadora" style="
+      background:#2a2a2a;
+      color:white;
+      border:1px solid #444;
+      border-radius:8px;
+      max-height:150px;
+      overflow-y:auto;
+      display:none;
+      z-index:10001;
+      box-shadow:0 4px 12px rgba(0,0,0,0.4);
+      margin-bottom:12px;
+    "></div>
+
+    <!-- Resultado -->
+    <div id="resultadoExpressao" style="
+      text-align:right;
+      margin-bottom:20px;
+      font-size:18px;
+      font-weight:bold;
+      color:#4caf50;
+      overflow:hidden;
+      white-space:nowrap;
+      text-overflow:ellipsis;
+    ">
+      =
+    </div>
+
+    <!-- Botões principais -->
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:20px;">
+      <button class="btn-acao" onclick="clicarBotao(' não ')">não</button>
+      <button class="btn-acao" onclick="clicarBotao(' e ')">e</button>
+      <button class="btn-acao" onclick="clicarBotao(' ou ')">ou</button>
+      <button class="btn-acao" onclick="clicarBotao(' ≠ ')">≠</button>
+    </div>
+
+    <!-- Rodapé -->
+    <div style="display:flex; justify-content:flex-end; gap:10px;">
+      <button class="btn-cancelar" onclick="fecharCalculadora()">Cancelar</button>
+      <button class="btn-ok" onclick="aplicarResultado()">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Imagens -->
+<div id="modalImagens" style="
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #000000aa;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+">
+
+  <div style="
+    background: #1e1e1e;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    color: white;
+    font-family: sans-serif;
+    box-shadow: none;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  ">
+    <h3 style="margin-top: 0;">Escolher Imagem</h3>
+
+<div id="listaImagens"></div>
+
+    <div style="margin-top: 15px;">
+      <input type="file" id="inputNovaImagem" accept="image/*" style="display:none" onchange="salvarNovaImagem(event)">
+      <button onclick="document.getElementById('inputNovaImagem').click()" style="padding:8px 14px; background:#2196f3; border:none; border-radius:6px; color:white;">Adicionar Imagem</button>
+      <button onclick="fecharModalImagens()" style="padding:8px 14px; background:#888; border:none; border-radius:6px; color:white; margin-left: 10px;">Fechar</button>
+    </div>
+  </div>
+</div>
+<script>
+const toggleBotoes = document.getElementById('toggleBotoes');
+const areaBotoes = document.getElementById('AreaTodosBotoes');
+
+toggleBotoes.addEventListener('click', () => {
+    areaBotoes.classList.toggle('mostrar');
+});
+
+function adicionarEfeitoPressionado(botao) {
+    botao.classList.add('pressionado');
+    setTimeout(() => botao.classList.remove('pressionado'), 150);
+}
+
+toggleBotoes.addEventListener('mousedown', () => adicionarEfeitoPressionado(toggleBotoes));
+toggleBotoes.addEventListener('touchstart', () => adicionarEfeitoPressionado(toggleBotoes));
+
+const botoesMenu = areaBotoes.querySelectorAll('button');
+botoesMenu.forEach(btn => {
+    btn.addEventListener('mousedown', () => adicionarEfeitoPressionado(btn));
+    btn.addEventListener('touchstart', () => adicionarEfeitoPressionado(btn));
+    btn.addEventListener('click', () => {
+        areaBotoes.classList.remove('mostrar');
+    });
+});
+</script>
+
+<script src="ArquivosJs/ConfigurarPrograma.js"></script>
+<script src="ArquivosJs/EditorEsprecoes.js"></script>
+</body>
+</html>

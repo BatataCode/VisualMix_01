@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="ArquivosCss/Objetos.css" />
+  <script disable-devtool-auto src="https://cdn.jsdelivr.net/npm/disable-devtool"></script>
+  <title>Objetos</title>
+</head>
+<body>
+  <div id="AreaTodosBotoes">
+    <button id="BotaoCriar" onclick="abrirModal()" aria-label="Criar novo objeto">+</button>
+    <button id="BotãoExecutar" onclick="executarTodos()">></button></button>
+  </div>
+  <h2 id="title-objetos">Objetos</h2>
+  <!-- Lista de Projetos -->
+<div id="listaObjetos" style="width: 90vw; max-width: 600px; margin-top: 50px; margin-bottom: 20px; font-size: 25px;"></div>
+
+  <!-- Modal de Criação -->
+  <div id="modalCriarObjetos" class="modal" style="display: none;">
+    <div class="modal-content">
+        <button class="botao-fechar" onclick="fecharModal()" aria-label="Fechar modal">×</button>
+      <h2>Criar Objeto</h2>
+      <div id="AreaCriacao">
+        <input type="text" placeholder="Nome do Objeto" id="inputNomeObjeto" />
+        <small id="mensagemErro" style="color: red; display: none;"></small>
+        <button id="BotãoCriar" onclick="criarObjeto()">Criar</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal de Edição de Objeto -->
+<div id="modalEditarObjeto" class="modal" style="display: none;">
+  <div class="modal-content">
+    <button class="botao-fechar" onclick="fecharModalEditarObjeto()">×</button>
+    <h2>Editar Nome do Objeto</h2>
+    <input type="text" id="inputEditarNomeObjeto" placeholder="Novo nome do objeto" />
+    <small id="mensagemErroEditarObjeto" style="color: red; display: none;"></small>
+    <button onclick="confirmarEdicaoObjeto()">Salvar</button>
+  </div>
+</div>
+
+  <script src="ArquivosJs/Objetos.js"></script>
+</body>
+</html>

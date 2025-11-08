@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="ArquivosCss/Cenas.css" />
+  <script disable-devtool-auto src="https://cdn.jsdelivr.net/npm/disable-devtool"></script>
+  <title>Cenas</title>
+</head>
+<body>
+  <div id="AreaTodosBotoes">
+    <button id="BotaoCriar" onclick="abrirModal()" aria-label="Criar nova cena">+</button>
+    <button id="BotãoExecutar" onclick="executarTodos()">></button>
+  </div>
+
+  <h2 id="title-cenas">Cenas</h2>
+
+  <!-- Lista de Cenas -->
+  <div id="listaCenas" style="width: 90vw; max-width: 600px; margin-top: 50px; margin-bottom: 20px; font-size: 25px;"></div>
+
+  <!-- Modal de Criação -->
+  <div id="modalCriarCenas" class="modal" style="display: none;">
+    <div class="modal-content">
+      <button class="botao-fechar" onclick="fecharModal()" aria-label="Fechar modal">×</button>
+      <h2>Criar Cena</h2>
+      <div id="AreaCriacao">
+        <input type="text" placeholder="Nome da Cena" id="inputNomeCena" />
+        <small id="mensagemErro" style="color: red; display: none;"></small>
+        <button id="BotãoCriarCena" onclick="criarCena()">Criar</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal de Edição de Cena -->
+<div id="modalEditarCena" class="modal" style="display: none;">
+  <div class="modal-content">
+    <button class="botao-fechar" onclick="fecharModalEditarCena()">×</button>
+    <h2>Editar Nome da Cena</h2>
+    <input type="text" id="inputEditarNomeCena" placeholder="Novo nome da cena" />
+    <small id="mensagemErroEditarCena" style="color: red; display: none;"></small>
+    <button onclick="confirmarEdicaoCena()">Salvar</button>
+  </div>
+</div>
+
+  <script src="ArquivosJs/Cenas.js">
+  </script>
+</body>
+</html>

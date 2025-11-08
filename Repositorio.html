@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <script disable-devtool-auto src="https://cdn.jsdelivr.net/npm/disable-devtool"></script>
+  <title>Guia VisualMix – Blocos</title>
+  <style>
+    :root {
+      --fundo: #1e1e1e;
+      --card: #2b2b2b;
+      --texto: #e0e0e0;
+      --codigo-bg: #1d1f21;
+      --codigo-borda: #444c56;
+      --destaque: #4fc1ff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--fundo);
+      margin: 0;
+      padding: 20px;
+      color: var(--texto);
+      line-height: 1.6;
+      user-select: none;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--destaque);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+
+    section {
+      background: var(--card);
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 12px;
+      max-width: 850px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
+    }
+
+    section:hover {
+      transform: scale(1.005);
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
+      color: var(--destaque);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    p {
+      margin: 8px 0 16px;
+    }
+
+    pre {
+      background: var(--codigo-bg);
+      color: #c8c8c8;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      border: 1px solid var(--codigo-borda);
+      overflow-x: auto;
+      font-family: monospace;
+      user-select: text;
+    }
+
+    code {
+      background: #333c45;
+      color: #4fc1ff;
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      user-select: all;
+    }
+
+    ul {
+      padding-left: 24px;
+      max-width: 850px;
+      margin: 0 auto;
+      font-size: 1rem;
+      color: var(--texto);
+      list-style-type: disc;
+    }
+
+    ul li {
+      margin-bottom: 8px;
+      user-select: text;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+
+      section {
+        padding: 15px;
+      }
+
+      h2 {
+        font-size: 1.15rem;
+      }
+
+      pre {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>📘 Guia do VisualMix – Blocos e Expressões</h1>
+
+  <section>
+    <h2>🟨 Ao iniciar</h2>
+    <p>Executa blocos automaticamente quando a cena começa.</p>
+    <pre>[ao iniciar]
+  [criar variável] vidas = 3
+  [criar caixa] jogador, azul
+  [posicionar caixa] jogador, x: 100, y: 200
+[fim]</pre>
+  </section>
+
+  <section>
+    <h2>🧠 Variáveis</h2>
+    <p>Manipulação básica para armazenar e atualizar valores.</p>
+    <pre>[criar variável] pontuacao = 0
+[alterar variável] pontuacao = pontuacao + 1
+[mostrar texto] placar, texto: "Pontos: ${pontuacao}"</pre>
+  </section>
+
+  <section>
+    <h2>🎮 Eventos</h2>
+    <p>Reage a toques em objetos ou na tela.</p>
+    <pre>[ao tocar na caixa] botao
+  [mudar cena] jogo
+[fim]
+
+[ao tocar na tela]
+  [pular] jogador, força: 15
+[fim]</pre>
+  </section>
+
+  <section>
+    <h2>🔁 Controle</h2>
+    <p>Controle de fluxo, decisões e repetições.</p>
+    <pre>[esperar] 0.5 segundos
+
+[se] ${pontuacao} >= 10
+  [mostrar texto] mensagem, "Você venceu!"
+[fim]
+
+[repetir sempre]
+  [mover] jogador, 2
+[fim]</pre>
+  </section>
+
+  <section>
+    <h2>📦 Caixas (Objetos)</h2>
+    <p>Criação e manipulação de objetos visuais.</p>
+    <pre>[criar caixa] inimigo, vermelho
+[definir direção] inimigo = ${apontarPara("jogador")}
+[mover] inimigo, 1 passo
+
+[mostrar caixa] inimigo
+[esconder caixa] inimigo
+[remover] inimigo</pre>
+  </section>
+
+  <section>
+    <h2>📝 Textos</h2>
+    <p>Controle de textos exibidos na tela.</p>
+    <pre>[mostrar texto] msg, "Toque aqui"
+[posicionar texto] msg, x: 50, y: 20
+[tamanho do texto] msg = 22px
+[cor do texto] msg = verde</pre>
+  </section>
+
+  <section>
+    <h2>📑 Listas</h2>
+    <p>Manipulação de coleções de dados.</p>
+    <pre>[criar lista] itens = "espada, escudo"
+[adicionar na lista] itens, "poção"
+[remover da lista] itens, índice: 0
+[mostrar texto] t, "1º item: ${itens[0]}"</pre>
+  </section>
+
+  <section>
+    <h2>🧲 Física e Movimento</h2>
+    <p>Movimentação, gravidade e pulo.</p>
+    <pre>[aplicar gravidade] jogador, força: -0.5
+[pular] jogador, força: 12
+[direção] jogador = ${apontarPara("inimigo")}
+[mover] jogador, 3</pre>
+  </section>
+
+  <section>
+    <h2>🎞️ Animação</h2>
+    <p>Sequência animada de texturas.</p>
+    <pre>[textura] jogador = heroi1.png
+[criar animação] jogador = ["heroi1.png", "heroi2.png"], velocidade: 4
+[parar animação] jogador
+[continuar animação] jogador</pre>
+  </section>
+
+  <section>
+    <h2>🔊 Áudio</h2>
+    <p>Controle de sons e músicas.</p>
+    <pre>[tocar áudio] musica.mp3
+[pausar áudio] musica.mp3
+[parar áudio] musica.mp3
+[definir volume do áudio] musica.mp3 = 70</pre>
+  </section>
+
+  <section>
+    <h2>🎥 Câmera</h2>
+    <p>Configurações e controle da câmera do jogo.</p>
+    <pre>[câmera] seguir: jogador
+[suavidade da câmera] 0.1
+[fixar na câmera] textoPlacar</pre>
+  </section>
+
+  <section>
+    <h2>🎬 Cenas</h2>
+    <p>Gerenciamento das cenas e orientações.</p>
+    <pre>[mudar cena] menu
+[orientação] paisagem</pre>
+  </section>
+
+  <section>
+    <h2>🧰 Extras</h2>
+    <p>Blocos para clones, efeitos e carimbos.</p>
+    <pre>[clonar] inimigo
+[ao criar clone] inimigo
+  [mover] inimigo, 2
+[fim]
+
+[efeito] jogador, "fantasma"
+[carimbo] tinta</pre>
+  </section>
+
+  <section>
+    <h2>📐 Expressões úteis</h2>
+    <p>Expressões dinâmicas para posições, toques, direções e números aleatórios.</p>
+    <ul>
+      <li><code>toqueX(0)</code> – Posição X do toque principal (índice 0).</li>
+      <li><code>toqueY(0)</code> – Posição Y do toque principal (índice 0).</li>
+      <li><code>telaEstaTocada(0)</code> – Retorna <code>true</code> se a tela está sendo tocada (índice 0).</li>
+      <li><code>ultimoToque()</code> – Retorna o número do toque mais recente.</li>
+      <li><code>posicaoX(id)</code> – Posição X (relativa à câmera) do centro do objeto <code>id</code>.</li>
+      <li><code>posicaoY(id)</code> – Posição Y (relativa à câmera) do centro do objeto <code>id</code>.</li>
+      <li><code>toqueEm(id)</code> – Retorna <code>true</code> se o objeto <code>id</code> estiver sendo tocada.</li>
+      <li><code>apontarPara(origem, alvo)</code> – Ângulo, em graus, do objeto <code>origem</code> até o objeto <code>alvo</code>.</li>
+      <li><code>direcao(id)</code> – Direção atual do objeto <code>id</code>, em graus.</li>
+      <li><code>aleatorio(min, max)</code> – Número inteiro aleatório entre <code>min</code> e <code>max</code>.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>✅ Boas práticas</h2>
+    <ul>
+      <li><strong>Dê nomes claros e simples</strong> para variáveis, caixas e listas. Evite acentos, espaços e símbolos especiais.</li>
+      <li><strong>Use o bloco <code>[esperar]</code></strong> sempre que precisar dar tempo para algo acontecer (ex: carregar sons, esperar animação, evitar conflitos).</li>
+      <li><strong>Crie objetos antes de usá-los</strong>, como caixas ou textos. Usar uma caixa que ainda não existe pode gerar erros silenciosos.</li>
+      <li><strong>Evite repetir nomes</strong> em variáveis, listas ou caixas diferentes. Isso pode causar conflitos ou sobrescritas indesejadas.</li>
+      <li><strong>Organize seus blocos com indentação</strong> para facilitar a leitura e entender a lógica.</li>
+      <li><strong>Use comentários visuais</strong> (como blocos de texto com cor diferente) para indicar partes importantes do código.</li>
+      <li><strong>Evite loops infinitos desnecessários</strong> sem <code>[esperar]</code> dentro, pois pode travar o jogo.</li>
+      <li><strong>Use <code>[se]</code> e <code>[senão]</code> com expressões claras</strong>, como <code>$vidas &gt; 0</code>, para evitar confusões.</li>
+      <li><strong>Teste uma parte por vez</strong> do seu jogo para encontrar erros facilmente.</li>
+      <li><strong>Use clones com moderação</strong>, pois muitos podem afetar desempenho, especialmente em dispositivos móveis.</li>
+    </ul>
+  </section>
+</body>
+</html>
