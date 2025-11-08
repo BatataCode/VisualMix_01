@@ -112,10 +112,10 @@ function confirmarOrientacao() {
       nome: nomeProjetoTemp,
       orientacao: orientacao
     },
-    cenas: [],
-    objetos: {},
-    blocos: {}
-  };
+    cenas: [{ nome: "Cena1" }],
+    objetos: { "Cena1": [] },
+    blocos: { "Cena1": [] }
+    };
 
   AndroidInterface.criarNovoArquivo(nomeProjetoTemp + ".json", JSON.stringify(projeto));
 
