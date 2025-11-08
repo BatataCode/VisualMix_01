@@ -1,0 +1,197 @@
+/* Reset básico */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100dvh;
+  background: #1f2333;
+  font-family: sans-serif;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  user-select: none;
+}
+
+#title-objetos {
+  position: fixed;
+  right: 77%;
+  color: yellow;
+}
+
+/* Botões gerais */
+button {
+  padding: 12px 20px;
+  background: linear-gradient(to bottom, #3f51b5, #303f9f);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Botão flutuante */
+#AreaTodosBotoes {
+  position: fixed;
+  bottom: 7%;
+  left: 75%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  z-index: 1000;
+}
+
+#BotaoCriar, #BotãoExecutar {
+  border-radius: 50%;
+  font-size: 30px;
+  width: 60px;
+  height: 60px;
+  padding: 37px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#modalCriarObjetos #BotãoCriar {
+  width: 40%;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.modal-content {
+  background: #2c2f4a;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90dvh;
+  overflow-y: auto;
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+}
+
+/* Área de criação */
+#AreaCriacao {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+input {
+  padding: 10px;
+  border: 2px solid #3498db;
+  border-radius: 8px;
+  font-size: 16px;
+  width: 100%;
+  max-width: 300px;
+  outline: none;
+  transition: border 0.3s;
+}
+
+input:focus {
+  border-color: #2ecc71;
+}
+
+input.erro {
+  border: 2px solid red !important;
+  background-color: #ffe5e5;
+}
+
+.botao-fechar {
+  float: right;
+  padding: 0;
+  margin: 0;
+  left: 85%;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 30px;
+}
+
+.botao-fechar:hover {
+  color: #ff6b6b;
+}
+
+.objeto{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2c2f4a;
+  border-radius: 12px;
+  padding: 10px 15px;
+  margin: 10px auto;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  width: 90vw;
+  font-size: 18px;
+}
+
+.icone-objeto {
+  width: 60px;
+  height: 60px;
+}
+
+.objeto-conteudo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.nome-objeto {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.botao-excluir {
+  background: none;
+  border: none;
+  color: #ff4d4d;
+  font-size: 30px;
+  padding: 0 10px;
+  transition: transform 0.2s;
+  box-shadow: none;
+}
+
+.botao-excluir:hover {
+  transform: scale(1.2);
+  background: none;
+  box-shadow: none;
+}
+
+#modalEditarObjeto input:focus {
+  border-color: #7b61ff; /* roxo vibrante */
+  box-shadow: 0 0 0 2px rgba(123, 97, 255, 0.2);
+}
+
+#modalEditarObjeto input {
+  width: 100%;
+  max-width: 300px;
+  padding: 10px;
+  border: 2px solid #3498db;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-bottom: 15px;
+}

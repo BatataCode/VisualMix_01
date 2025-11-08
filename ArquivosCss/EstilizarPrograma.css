@@ -1,0 +1,343 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100dvh;
+  background: #1f2333;
+  font-family: sans-serif;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  user-select: none;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  overflow-y: auto;
+}
+
+.modal-content {
+  background: #2c2f4a;
+  padding-right: 30px;
+  padding-left: 30px;
+  padding-bottom: 30px;
+  text-align: center;
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+}
+
+.opcoes-container {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+.bloco {
+  padding: 12px 12px;
+  border-radius: 0px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-bottom: 3px;
+  position: relative;
+  color: white;
+  width: 100%;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 15px;
+  line-height: 1.4;
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.bloco h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.bloco input {
+  width: 99%;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.bloco .fechar {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(to bottom, #e74c3c, #c0392b);
+  border: 1.5px solid #a5281f;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.bloco.dragging {
+  opacity: 0.5;
+}
+
+#area-blocos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  width: 96vw;
+  max-height: 93dvh;
+  overflow-y: auto;
+  scroll-behavior: none;
+  padding-top: 10px;
+  padding-bottom: 100px;
+  margin-top: 9%;
+  border-radius: 10px;
+}
+
+.titulo-categoria {
+  width: 100%;
+  font-size: 20px;
+  color: #ffd700;
+  margin: 25px 0 10px;
+  text-align: left;
+  padding-left: 10px;
+  border-left: 5px solid #ffd700;
+}
+
+/* 🟨 Eventos */
+.bloco-quandoComecar,
+.bloco-fimQuandoComecar,
+.bloco-quandoTocado,
+.bloco-fimQuandoTocado,
+.bloco-quandoTocadoNaTela,
+.bloco-fimQuandoTocadoNaTela,
+.bloco-quandoForVerdadeiro,
+.bloco-fimQuandoForVerdadeiro,
+.bloco-quandoCriarClone,
+.bloco-fimQuandoCriarClone {
+  background: linear-gradient(to bottom, #FFC107, #FFA000);
+  border: 2px solid #FF6F00;
+  color: #212121;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+/* 🟧 Controle de Fluxo */
+.bloco-se,
+.bloco-fimSe,
+.bloco-repetirVezes,
+.bloco-fimRepetirVezes,
+.bloco-repetirAte,
+.bloco-fimRepetirAte,
+.bloco-repetirSempre,
+.bloco-fimRepetirSempre,
+.bloco-aguardarSegundos,
+.bloco-aguardarSerVerdadeiro,
+.bloco-mudarDeCena,
+.bloco-definirOrientacao {
+  background: linear-gradient(to bottom, #FF5722, #E64A19);
+  border: 2px solid #BF360C;
+  color: #FAFAFA;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.7);
+}
+
+/* 💗 Criação e Clonagem */
+.bloco-novoObjeto,
+.bloco-clonarObjeto {
+  background: linear-gradient(to bottom, #E91E63, #C2185B);
+  border: 2px solid #880E4F;
+  color: #FAFAFA;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+/* 🟦 Movimento e Física */
+.bloco-definirPosicaoDoObjeto,
+.bloco-moverObjeto,
+.bloco-definirDirecao {
+  background: linear-gradient(to bottom, #2196F3, #1976D2);
+  border: 2px solid #0D47A1;
+  color: #FAFAFA;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+/* 🟪 Aparência e Estilo */
+.bloco-definirCor,
+.bloco-bordaDoObjeto,
+.bloco-definirTamanho,
+.bloco-larguraEaltura,
+.bloco-definirSprite,
+.bloco-definirCamada,
+.bloco-definirTransparencia,
+.bloco-mostrar,
+.bloco-esconder,
+.bloco-remover {
+  background: linear-gradient(to bottom, #9C27B0, #7B1FA2);
+  border: 2px solid #4A148C;
+  color: #FAFAFA;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+/* 🎙️ Áudios */
+.bloco-tocarAudio,
+.bloco-pausarAudio,
+.bloco-continuarAudio,
+.bloco-pararAudio,
+.bloco-volumeAudio {
+  background: linear-gradient(to bottom, #388E3C, #1B5E20);
+  border: 2px solid #0D3B12;
+  color: #FAFAFA;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+/* 🎞️ Animações */
+.bloco-criarAnimacao {
+  background: linear-gradient(to bottom, #009688, #00796B);
+  border: 2px solid #004D40;
+  color: #FAFAFA;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+/* 🟩 Texto */
+.bloco-novoTexto,
+.bloco-definirPosicaoDoTexto {
+  background: linear-gradient(to bottom, #4CAF50, #388E3C);
+  border: 2px solid #1B5E20;
+  color: #FAFAFA;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+/* 🟠 Variáveis e Listas */
+.bloco-definirVariavel,
+.bloco-alterarVariavel {
+  background: linear-gradient(to bottom, #FF9800, #F57C00);
+  border: 2px solid #E65100;
+  color: #FAFAFA;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+/* 🔹 Câmera */
+.bloco-addCamera,
+.bloco-velocidadeDaCamera,
+.bloco-fixarNaCamera {
+  background: linear-gradient(to bottom, #03A9F4, #0288D1);
+  border: 2px solid #01579B;
+  color: #FAFAFA;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+/* 🌐 Anúncios */
+.bloco-configurarUnity,
+.bloco-exibirAnuncio {
+  background: linear-gradient(135deg, #FFF4B1, #FFD93B, #FFB400);
+  border: 2px solid #C99800;
+  color: #3B2C00;
+  text-shadow: 0 1px 1px rgba(255,255,255,0.8);
+}
+
+/* 💬 Comentários */
+.bloco-comentario {
+  background: linear-gradient(to bottom, #EEEEEE, #BDBDBD);
+  border: 2px solid #757575;
+  color: #212121;
+  text-shadow: none;
+}
+
+.bloco-quandoComecar,
+.bloco-quandoTocado,
+.bloco-quandoTocadoNaTela,
+.bloco-quandoForVerdadeiro,
+.bloco-quandoCriarClone {
+  margin-top: 5px;
+}
+
+#listaImagens {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 colunas fixas */
+  gap: 18px;
+  padding: 16px;
+  background: #2b2b2b;
+  border-radius: 8px;
+  box-sizing: border-box;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.imagemWrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.imagemMiniatura {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  background-color: #1e1e1e;
+  border: 2px solid transparent;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.imagemMiniatura:hover {
+  transform: scale(1.05);
+  border-color: #4caf50;
+}
+
+.botaoExcluirImagem {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: #f44336;
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  font-size: 14px;
+  cursor: pointer;
+  line-height: 20px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px #00000066;
+  transition: background 0.2s;
+}
+
+.botaoExcluirImagem:hover {
+  background: #d32f2f;
+}
