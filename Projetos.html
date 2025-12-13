@@ -9,7 +9,7 @@
 </head>
 <body>
   <div id="AreaTodosBotoes">
-    <button id="btnImportarProjeto" aria-label="Importar projeto">📥🐣</button>
+    <button id="btnImportarProjeto" aria-label="Importar projeto">📥</button>
     <input type="file" id="inputImportarProjeto" accept=".json" style="display: none;" />
     <button id="btnExportarProjeto" aria-label="Exportar projeto" onclick="abrirModalExportar()">📤</button>
     <button id="btnCriar" onclick="abrirModal()" aria-label="Criar novo projeto">+</button>
@@ -70,37 +70,5 @@
 </div>
   <script src="ArquivosJs/Projetos.js"></script>
   <script src="ArquivosJs/Compartilhar.js"></script>
-<script>
-document.addEventListener('contextmenu', e => e.preventDefault());
-
-document.addEventListener('keydown', e => {
-    const k = e.key.toLowerCase();
-    if (
-        k === 'f12' ||
-        (e.ctrlKey && ['u','s','c','p','i','j'].includes(k)) ||
-        (e.ctrlKey && e.shiftKey && ['i','c','j'].includes(k))
-    ) {
-        e.preventDefault();
-        e.stopPropagation();
-    }
-});
-
-(function(){
-    let a=false,b=0;
-    const f=new Image();
-    Object.defineProperty(f,'id',{get:()=>{a=true;}});
-    const r=()=>{console.log(f);if(a)location.reload();a=false;};
-    const p=()=>{
-        b++;
-        if(b>10){
-            b=0;
-            r();
-        }
-        if(new Date()-0>0){}
-        requestAnimationFrame(p);
-    };
-    p();
-})();
-</script>
 </body>
 </html>
